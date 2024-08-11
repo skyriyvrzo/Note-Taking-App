@@ -11,7 +11,7 @@ if (!empty($_POST)) {
             $error = "Password do not match.";
         } else {
             require_once 'database/connect.php';
-    
+
             $sql = "SELECT * FROM `users` WHERE username = :username";
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':username', $username);
@@ -27,10 +27,11 @@ if (!empty($_POST)) {
                 $stmt->bindParam(':email', $email);
                 $stmt->bindParam(':hashed_password', $hashed_password);
                 $stmt->execute();
-                header('location: login.html');
+                header('location: login.php');
+                exit();
             }
         }
-    } catch(Exception $e) {
+    } catch (Exception $e) {
         echo $e->getMessage();
     }
 }
@@ -48,11 +49,13 @@ if (!empty($_POST)) {
 <body>
     <div class="register-container">
         <h2>Register</h2>
-        <p class="error-message"><?php 
-            if(!empty($error)) {
+        <p class="error-message">
+            <?php
+            if (!empty($error)) {
                 echo $error;
             }
-        ?></p>
+            ?>
+        </p>
         <form action="register.php" method="post">
             <input type="text" name="username" placeholder="Username" required>
             <input type="email" name="email" placeholder="Email" required>
@@ -61,7 +64,7 @@ if (!empty($_POST)) {
             <button type="submit">Register</button>
         </form>
         <div class="login-link">
-            <p>Already have an account? <a href="login.html">Login here</a></p>
+            <p>Already have an account? <a href="login.php">Login here</a></p>
         </div>
     </div>
 </body>

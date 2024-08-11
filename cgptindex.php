@@ -1,33 +1,25 @@
 <?php
 session_start();
 
-// ตรวจสอบการเข้าสู่ระบบ
+// ตรวจสอบว่าผู้ใช้เข้าสู่ระบบหรือไม่
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.html");
+    header('location: login.php');
     exit();
 }
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "notetakingapp";
+require_once 'database/connect.php';
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
+// ดึงข้อมูลบันทึกของผู้ใช้จากฐานข้อมูล
 $user_id = $_SESSION['user_id'];
-$sql = "SELECT id, title, content, created_at FROM notes WHERE user_id = ?";
+$sql = "SELECT * FROM notes WHERE user_id = :user_id";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $user_id);
+$stmt->bindParam(':user_id', $user_id);
 $stmt->execute();
-$result = $stmt->get_result();
+$notes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,66 +28,92 @@ $result = $stmt->get_result();
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
-            padding: 20px;
+            margin: 0;
+            padding: 0;
         }
+
         .dashboard-container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-        .note {
-            background-color: white;
+            max-width: 800px;
+            margin: 50px auto;
             padding: 20px;
+            background-color: white;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
             margin-bottom: 20px;
         }
-        .note h3 {
-            margin-top: 0;
+
+        .note {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-left: 5px solid #007BFF;
+            border-radius: 5px;
         }
+
+        .note h2 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.5em;
+        }
+
         .note p {
             margin: 0;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            white-space: pre-wrap;
         }
-        .note-actions {
+
+        .note small {
+            display: block;
             margin-top: 10px;
+            color: #555;
         }
-        .note-actions a {
-            color: #5cb85c;
+
+        .add-note-link {
+            display: block;
+            margin-bottom: 20px;
+            text-align: right;
+        }
+
+        .add-note-link a {
             text-decoration: none;
-            margin-right: 10px;
+            color: white;
+            background-color: #007BFF;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
         }
-        .note-actions a:hover {
-            text-decoration: underline;
-        }
-        .logout {
-            margin-top: 20px;
-            text-align: center;
+
+        .add-note-link a:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
+
 <body>
     <div class="dashboard-container">
-        <h1>Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>!</h1>
-        <a href="add_note.php">Add New Note</a>
-        <h2>Your Notes</h2>
-        <?php while ($row = $result->fetch_assoc()) { ?>
-            <div class="note">
-                <h3><?php echo htmlspecialchars($row['title']); ?></h3>
-                <p><?php echo nl2br(htmlspecialchars($row['content'])); ?></p>
-                <small>Created at: <?php echo $row['created_at']; ?></small>
-                <div class="note-actions">
-                    <a href="edit_note.php?id=<?php echo $row['id']; ?>">Edit</a>
-                    <a href="delete_note.php?id=<?php echo $row['id']; ?>" onclick="return confirm('Are you sure you want to delete this note?');">Delete</a>
-                </div>
-            </div>
-        <?php } ?>
-        <div class="logout">
-            <a href="logout.php">Logout</a>
+        <h1>Welcome, <?php echo htmlspecialchars($_SESSION['username'], ENT_QUOTES, 'UTF-8'); ?>!</h1>
+
+        <div class="add-note-link">
+            <a href="create_note.php">Add New Note</a>
         </div>
+
+        <h2>Your Notes:</h2>
+        <?php if ($notes): ?>
+            <?php foreach ($notes as $note): ?>
+                <div class="note">
+                    <h2><?php echo htmlspecialchars($note['title'], ENT_QUOTES, 'UTF-8'); ?></h2>
+                    <p><?php echo nl2br(htmlspecialchars($note['content'], ENT_QUOTES, 'UTF-8')); ?></p>
+                    <small><?php echo htmlspecialchars($note['created_at'], ENT_QUOTES, 'UTF-8'); ?></small>
+                </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p>You have no notes yet.</p>
+        <?php endif; ?>
     </div>
 </body>
-</html>
 
-<?php
-$stmt->close();
-$conn->close();
-?>
+</html>

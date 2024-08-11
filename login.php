@@ -10,16 +10,20 @@ if (!empty($_POST)) {
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':username', $username);
     $stmt->execute();
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $row = $stmt->fetch(PDO::FETCH_ASSOC); //fetch แล้วไม่มีข้อมูล -> $row = false
 
-    $hashed_password = $row['password'];
-    $id = $row['id'];
-    if (password_verify($password, $hashed_password)) {
-        $_SESSION['user_id'] = $id;
-        $_SESSION['username'] = $username;
+    if ($row) {
+        $hashed_password = $row['password'];
+        $id = $row['id'];
+        if (password_verify($password, $hashed_password)) {
+            $_SESSION['user_id'] = $id;
+            $_SESSION['username'] = $username;
 
-        header('location: index.php');
-        exit();
+            header('location: index.php');
+            exit();
+        } else {
+            $error = "Invalid username or password";
+        }
     } else {
         $error = "Invalid username or password";
     }
@@ -39,18 +43,20 @@ if (!empty($_POST)) {
 <body>
     <div class="login-container">
         <h2>Login</h2>
-        <p class="error-message"><?php
-                                    if (!empty($error)) {
-                                        echo $error;
-                                    }
-                                    ?></p>
+        <p class="error-message">
+            <?php
+            if (!empty($error)) {
+                echo $error;
+            }
+            ?>
+        </p>
         <form action="login.php" method="post">
             <input type="text" name="username" placeholder="Username" required>
             <input type="password" name="password" placeholder="Password" required>
             <button type="submit">Login</button>
         </form>
         <div class="register-link">
-            <p>Don't have an account? <a href="register.html">Register here</a></p>
+            <p>Don't have an account? <a href="register.php">Register here</a></p>
         </div>
     </div>
 </body>
