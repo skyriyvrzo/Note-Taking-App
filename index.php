@@ -50,6 +50,7 @@ $notes = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
         .dashboard-container .header a {
+            margin-left: 310px;
             font-size: 14px;
             text-decoration: none;
             color: #474747;
@@ -57,6 +58,11 @@ $notes = $stmt->fetchAll(PDO::FETCH_ASSOC);
             border: 1px solid;
             border-radius: 5px;
             border-color: #bdbdbd;
+        }
+
+        .dashboard-container .header a:hover {
+            border-color: black;
+            color: black;
         }
 
         .dashboard-container h3 {
@@ -166,7 +172,6 @@ $notes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <body>
     <div class="dashboard-container">
-
         <div class="header">
             <h1>Welcome, <?php echo $_SESSION['username'] ?>!</h1>
             <a href="logout.php">Logout</a>
