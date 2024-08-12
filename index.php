@@ -31,7 +31,7 @@ $notes = $stmt->fetchAll(PDO::FETCH_ASSOC);
             background-color: #e8e8e8;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
             height: 100vh;
         }
 
