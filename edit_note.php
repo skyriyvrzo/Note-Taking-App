@@ -132,7 +132,7 @@ if(!empty($_POST)) {
             </div>
             <div class="form-group">
                 <label for="category">Category</label>
-                <input type="text" name="category", value="<?php echo $note['category']?>" required>
+                <input type="text" name="category", value="<?php echo $note['category']?>">
             </div>
             <button type="submit">Update Note</button>
         </form>
