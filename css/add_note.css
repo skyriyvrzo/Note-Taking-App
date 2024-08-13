@@ -1,0 +1,70 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #e8e8e8;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.container {
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+}
+
+.note-form {
+    margin-bottom: 20px;
+}
+
+.note-form input,
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.actions button {
+    padding: 10px;
+    background-color: #5cb85c;
+    border: none;
+    border-radius: 4px;
+    color: while;
+    cursor: pointer;
+}
+
+.actions button:hover {
+    background-color: #4cae4c;
+}
+
+.actions a {
+    font-size: 14px;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.actions .cancel {
+    background-color: #991501;
+    color: white;
+    border: 1px solid;
+    border-color: #991501;
+}
+
+.actions .cancel:hover {
+    background-color: #7a1101;
+    border-color: #991501;
+}
+
+.error-message {
+    color: red;
+    font-size: 13px;
+}
