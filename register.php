@@ -17,7 +17,7 @@ if (!empty($_POST)) {
             $stmt->bindParam(':username', $username);
             $stmt->execute();
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
-            
+
             if (!empty($row['id'])) {
                 $error = "Username already exists.";
             } else {
