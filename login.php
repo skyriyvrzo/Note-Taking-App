@@ -10,7 +10,7 @@ if (!empty($_POST)) {
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':username', $username);
     $stmt->execute();
-    $row = $stmt->fetch(PDO::FETCH_ASSOC); //fetch แล้วไม่มีข้อมูล -> $row = false
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($row) {
         $hashed_password = $row['password'];
@@ -22,10 +22,10 @@ if (!empty($_POST)) {
             header('location: index.php');
             exit();
         } else {
-            $error = "Invalid username or password";
+            $error = "Incorrect username or password";
         }
     } else {
-        $error = "Invalid username or password";
+        $error = "Incorrect username or password";
     }
 }
 
