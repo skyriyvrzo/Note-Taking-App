@@ -45,7 +45,7 @@ body {
 .add-note-link {
     display: block;
     margin-top: 20px;
-    text-align: right;
+    text-align: left;
 }
 
 .add-note-link a {
@@ -104,7 +104,7 @@ body {
 }
 
 .note-actions {
-    margin-top: 20px;
+    margin-top: -20px;
     display: block;
     text-align: right;
 }
