@@ -45,14 +45,15 @@ $notes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <div class="note">
                     <h2><?php echo $note['title'] ?></h2>
                     <small class="category"><?php if (!empty($note['category'])) {
-                                                echo "Category: " . $note['category'];
-                                            }
-                                            ?></small>
+                        echo "Category: " . $note['category'];
+                    }
+                    ?></small>
                     <p><?php echo $note['content'] ?></p>
                     <small class="created-at">Created at: <?php echo $note['created_at'] ?></small>
                     <div class="note-actions">
                         <a href="edit_note.php?id=<?php echo $note['id'] ?>" class="edit">Edit</a>
-                        <a href="delete_note.php?id=<?php echo $note['id'] ?>" class="delete" onclick="return confirm('Are you sure you want to delete this note?');">Delete</a>
+                        <a href="delete_note.php?id=<?php echo $note['id'] ?>" class="delete"
+                            onclick="return confirm('Are you sure you want to delete this note?');">Delete</a>
                     </div>
                 </div>
                 <br>

@@ -51,10 +51,10 @@ if (!empty($_POST)) {
             <h2>Create a Note</h2>
             <p class="error-message">
                 <?php
-if (!empty($error)) {
-    echo $error;
-}
-?>
+                if (!empty($error)) {
+                    echo $error;
+                }
+                ?>
             </p>
             <form action="add_note.php" method="post">
                 <input type="text" name="title" placeholder="Note Title" required>

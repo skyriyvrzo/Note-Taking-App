@@ -54,9 +54,9 @@ if (!empty($_POST)) {
         </p>
         <form action="login.php" method="post">
             <input type="text" name="username" placeholder="Username" value="<?php if (!empty($username)) {
-                                                                                    echo $username;
-                                                                                }
-                                                                                ?>" required>
+                echo $username;
+            }
+            ?>" required>
             <input type="password" name="password" placeholder="Password" required>
             <button type="submit">Login</button>
         </form>

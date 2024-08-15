@@ -34,7 +34,8 @@ if (!empty($_POST)) {
         header('location: index.php');
         exit();
     }
-} else {
+} 
+else {
     $sql = "SELECT * FROM notes WHERE id = :id AND user_id = :user_id";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':id', $note_id);

@@ -94,9 +94,9 @@ body {
     white-space: pre-wrap;
 }
 
-/* .note .created-at {
+.note .created-at {
     margin-top: 10px;
-} */
+}
 
 .note .category {
     margin-top: -16px;

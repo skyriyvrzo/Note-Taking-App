@@ -53,28 +53,26 @@ if (!empty($_POST)) {
         <h2>Register</h2>
         <p class="error-message">
             <?php
-if (!empty($error)) {
-    echo $error;
-}
-?>
+            if (!empty($error)) {
+                echo $error;
+            }
+            ?>
         </p>
         <form action="register.php" method="post">
             <input type="text" name="username" placeholder="Username" value="<?php if (!empty($username)) {
-    echo $username;
-}
-?>" required>
+                echo $username;
+            } ?>" required>
             <input type="email" name="email" placeholder="Email" value="<?php if (!empty($email)) {
-    echo $email;
-}
-?>" required>
+                echo $email;
+            } ?>" required>
             <input type="password" name="password" placeholder="Password" value="<?php if (!empty($password)) {
-    echo $password;
-}
-?>" required>
+                echo $password;
+            }
+            ?>" required>
             <input type="password" name="confirm_password" placeholder="Confirm Password" value="<?php if (!empty($confirm_password)) {
-    echo $confirm_password;
-}
-?>" required>
+                echo $confirm_password;
+            }
+            ?>" required>
             <button type="submit">Register</button>
         </form>
         <div class="login-link">
