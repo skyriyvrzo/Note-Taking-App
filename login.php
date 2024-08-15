@@ -47,16 +47,16 @@ if (!empty($_POST)) {
         <h2>Login</h2>
         <p class="error-message">
             <?php
-if (!empty($error)) {
-    echo $error;
-}
-?>
+            if (!empty($error)) {
+                echo $error;
+            }
+            ?>
         </p>
         <form action="login.php" method="post">
             <input type="text" name="username" placeholder="Username" value="<?php if (!empty($username)) {
-    echo $username;
-}
-?>" required>
+                                                                                    echo $username;
+                                                                                }
+                                                                                ?>" required>
             <input type="password" name="password" placeholder="Password" required>
             <button type="submit">Login</button>
         </form>

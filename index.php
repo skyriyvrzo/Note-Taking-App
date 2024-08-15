@@ -39,15 +39,15 @@ $notes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         <h3>Your Notes:</h3>
         <?php
-if ($notes): ?>
+        if ($notes): ?>
             <?php
-foreach ($notes as $note): ?>
+            foreach ($notes as $note): ?>
                 <div class="note">
                     <h2><?php echo $note['title'] ?></h2>
                     <small class="category"><?php if (!empty($note['category'])) {
-    echo "Category: " . $note['category'];
-}
-?></small>
+                                                echo "Category: " . $note['category'];
+                                            }
+                                            ?></small>
                     <p><?php echo $note['content'] ?></p>
                     <small class="created-at">Created at: <?php echo $note['created_at'] ?></small>
                     <div class="note-actions">
@@ -56,10 +56,10 @@ foreach ($notes as $note): ?>
                     </div>
                 </div>
                 <br>
-            <?php endforeach?>
+            <?php endforeach ?>
         <?php else: ?>
             <p>You have no notes yet.</p>
-        <?php endif;?>
+        <?php endif; ?>
     </div>
 </body>
 
